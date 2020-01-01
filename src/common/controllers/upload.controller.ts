@@ -4,6 +4,8 @@ import {
   Logger,
   UploadedFiles,
   UseInterceptors,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import {
   FilesInterceptor,
@@ -11,15 +13,19 @@ import {
   AnyFilesInterceptor,
 } from '@nestjs/platform-express';
 
-@Controller()
+@Controller('/upload')
 export class UploadController {
-  @Post('uploadOne')
-  @UseInterceptors(FilesInterceptor('files'))
-  uploadOneFile(@UploadedFiles() files: any) {
-    return files;
+  @Post('one')
+  @UseInterceptors(FilesInterceptor('file'))
+  uploadOneFile(@UploadedFiles() file) {
+    if (file.length === 0) {
+      throw new HttpException('请求参数错误.', HttpStatus.FORBIDDEN);
+    }
+
+    return file;
   }
 
-  @Post('uploadMang')
+  @Post('mange')
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'avatar', maxCount: 1 },

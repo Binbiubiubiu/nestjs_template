@@ -11,6 +11,7 @@ import { jwtConstants } from './strategys/constants';
 import { UploadController } from './controllers/upload.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { ExtendsLogger } from './utils/extends-logger';
+import { diskStorage } from 'multer';
 
 @Module({
   imports: [
@@ -30,7 +31,12 @@ import { ExtendsLogger } from './utils/extends-logger';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     MulterModule.register({
-      dest: __dirname + '/upload',
+      storage: diskStorage({
+        destination: './upload',
+        filename: function(req, file, cb) {
+          cb(null, file.originalname);
+        },
+      }),
     }),
     // TypeOrmModule.forFeature([User]),
   ],
