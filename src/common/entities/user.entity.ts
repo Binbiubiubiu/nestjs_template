@@ -1,23 +1,29 @@
-import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude, Transform, Expose } from 'class-transformer';
 import { RoleEntity } from './role.entity';
+import { BaseEntity } from '../base/base.entity';
+import { PasswordTransformer } from '../utils/password.transformer';
 
 @Entity('user')
 export class UserEntity {
-  @ObjectIdColumn()
-  id: ObjectID;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column()
+  @Column({ length: 255 })
   username: string;
 
-  @Column()
+  @Column({
+    name: 'password',
+    length: 255,
+    transformer: new PasswordTransformer(),
+  })
   @Exclude()
   password: string;
 
-  @Column()
+  @Column({ length: 255, nullable: true })
   firstName: string;
 
-  @Column()
+  @Column({ length: 255, nullable: true })
   lastName: string;
 
   @Expose() // 预先计算的属性
@@ -27,9 +33,4 @@ export class UserEntity {
 
   @Transform(role => role.name) // 执行其他数据转换
   role: RoleEntity;
-
-  constructor(userName: string, password: string) {
-    this.username = userName;
-    this.password = password;
-  }
 }

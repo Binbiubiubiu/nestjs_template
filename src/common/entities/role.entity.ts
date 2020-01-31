@@ -1,11 +1,11 @@
-import { Entity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
-import { Collection } from 'mongoose';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '../base/base.entity';
 
-@Entity()
+@Entity('role')
 export class RoleEntity {
-  @ObjectIdColumn()
-  id: ObjectID;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column()
+  @Column({ length: 15 })
   name: string;
 }

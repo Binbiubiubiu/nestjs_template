@@ -1,10 +1,43 @@
 version: '3'
-services: 
-    mongodb:
-        image: mongo:3.4.23
-        container_name: mongodb
-        restart: always
-        volumes: 
-            - ./volumes:/data/db
-        ports: 
-            - 27017:27017
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql
+    command: [
+        '--default-authentication-plugin=mysql_native_password',
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci'
+    ]
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/logs:/logs
+      - ./db/data:/var/lib/mysql
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    networks:
+      - overlay
+  app:
+    image: node:latest
+    working_dir: /home/app
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm config set register https://registry.npm.taobao.org
+        npm run start:prod
+    volumes:
+      - ./:/home/app
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    networks:
+      - overlay
+    depends_on:
+      - db
+
+networks:
+  overlay:
+    driver: bridge

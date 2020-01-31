@@ -3,6 +3,7 @@
 /node_modules
 /volumes
 /upload
+/db
 
 # Logs
 logs
