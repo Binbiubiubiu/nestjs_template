@@ -5,6 +5,7 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import moment = require('moment');
 
 @Catch(HttpException)
 export class HttpExceptionFilterFilter<T> implements ExceptionFilter {
@@ -16,7 +17,7 @@ export class HttpExceptionFilterFilter<T> implements ExceptionFilter {
 
     response.status(status).json({
       ...exception.message,
-      timestamp: new Date().toISOString(),
+      timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
       path: request.url,
     });
   }

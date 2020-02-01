@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '../entities/user.entity';
 import { ConfigService } from '../../config/config.service';
 import { UserFormDto } from '../dtos/user-form.dto';
+import { classToPlain } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -17,11 +18,11 @@ export class AuthService {
     return {
       expiresIn: this.configService.get('JWT_EXPIRATION_TIME'),
       accessToken: this.jwtService.sign({ id: user.id }),
-      user,
+      user: classToPlain(user),
     };
   }
 
-  async validateUser({ username, password }: UserFormDto): Promise<any> {
+  async validateUser({ username, password }: UserFormDto) {
     const user = await this.usersService.getByUserNameAndPassWord(
       username,
       password,

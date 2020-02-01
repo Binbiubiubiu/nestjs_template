@@ -5,19 +5,19 @@ import { BaseEntity } from '../base/base.entity';
 import { PasswordTransformer } from '../utils/password.transformer';
 
 @Entity('user')
-export class UserEntity {
+export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ length: 255 })
   username: string;
 
+  @Exclude()
   @Column({
     name: 'password',
     length: 255,
     transformer: new PasswordTransformer(),
   })
-  @Exclude()
   password: string;
 
   @Column({ length: 255, nullable: true })
@@ -31,6 +31,6 @@ export class UserEntity {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  @Transform(role => role.name) // 执行其他数据转换
-  role: RoleEntity;
+  // @Transform(role => role.name) // 执行其他数据转换
+  // role: RoleEntity;
 }

@@ -42,9 +42,7 @@ export class UsersService {
   async create(payload: UserFormDto): Promise<any> {
     const user = await this.getByUserName(payload.username);
     if (user) {
-      throw new NotAcceptableException(
-        'User with provided email already created',
-      );
+      throw new NotAcceptableException('用户已存在');
     }
 
     return await this.userRepository.save(this.userRepository.create(payload));

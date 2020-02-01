@@ -13,10 +13,19 @@ import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { UserEntity } from './entities/user.entity';
 import { RoleEntity } from './entities/role.entity';
+import { AuthController } from './controllers/auth.controller';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule,
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.ts'),
+      },
+    }),
     TypeOrmModule.forFeature([UserEntity, RoleEntity]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
@@ -42,7 +51,7 @@ import { RoleEntity } from './entities/role.entity';
       }),
     }),
   ],
-  controllers: [UploadController, UsersController],
+  controllers: [UploadController, AuthController, UsersController],
   providers: [AuthService, UsersService, JwtStrategy],
   exports: [UsersService, AuthService],
 })
