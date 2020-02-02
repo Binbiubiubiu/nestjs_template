@@ -1,9 +1,9 @@
 # nestjs_template
 
-![image](https://img.shields.io/github/issues/Wildlifes/nestjs_template)
-![image](https://img.shields.io/github/forks/Wildlifes/nestjs_template)
-![image](https://img.shields.io/github/stars/Wildlifes/nestjs_template)
-![image](https://img.shields.io/github/license/Wildlifes/nestjs_template)
+![image](https://img.shields.io/github/issues/Simon-Bin/nestjs_template)
+![image](https://img.shields.io/github/forks/Simon-Bin/nestjs_template)
+![image](https://img.shields.io/github/stars/Simon-Bin/nestjs_template)
+![image](https://img.shields.io/github/license/Simon-Bin/nestjs_template)
 
 ## Description
 
