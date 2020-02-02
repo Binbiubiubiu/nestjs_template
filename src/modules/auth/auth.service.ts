@@ -1,17 +1,17 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { UserEntity } from '../entities/user.entity';
-import { ConfigService } from '../../config/config.service';
-import { UserFormDto } from '../dtos/user-form.dto';
+import { UserEntity } from '../user/user.entity';
+import { UserFormDto } from './dtos/user-form.dto';
 import { classToPlain } from 'class-transformer';
+import { ConfigService } from 'src/config/config.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
   ) {}
 
   async createToken(user: UserEntity) {

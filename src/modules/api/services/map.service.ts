@@ -1,7 +1,7 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { UserEntity } from '../../common/entities/user.entity';
+import { UserEntity } from 'src/modules/user/user.entity';
 
 @Injectable()
 export class MapService {

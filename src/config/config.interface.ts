@@ -11,6 +11,8 @@ export interface EnvConfig {
   DB_HOST: string;
   DB_PORT: string;
   DB_DATABASE: string;
+  // GRAPHQL
+  GRAPHQL_TYPE_PATHS: string;
 }
 
 export interface ConfigModuleOptions {

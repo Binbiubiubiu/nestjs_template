@@ -1,8 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude, Transform, Expose } from 'class-transformer';
-import { RoleEntity } from './role.entity';
-import { BaseEntity } from '../base/base.entity';
-import { PasswordTransformer } from '../utils/password.transformer';
+import { BaseEntity } from 'src/common/entities/base.entity';
+import { PasswordTransformer } from 'src/common/transformers/password.transformer';
 
 @Entity('user')
 export class UserEntity extends BaseEntity {

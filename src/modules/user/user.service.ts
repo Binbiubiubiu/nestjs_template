@@ -1,17 +1,20 @@
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import * as crypto from 'crypto';
 
-import { UserEntity } from '../entities/user.entity';
-import { UserFormDto } from '../dtos/user-form.dto';
-import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from './user.entity';
+import { UserFormDto } from '../auth/dtos/user-form.dto';
 
 @Injectable()
-export class UsersService {
+export class UserService extends TypeOrmCrudService<UserEntity> {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
-  ) {}
+    private readonly userRepository,
+  ) {
+    super(userRepository);
+  }
 
   async getUserById(id: number) {
     return this.userRepository.findOne(id);

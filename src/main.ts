@@ -1,19 +1,12 @@
+import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
-import {
-  ValidationPipe,
-  Logger,
-  ClassSerializerInterceptor,
-} from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as helmet from 'helmet';
-import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 import * as compression from 'compression';
 import { setupSwagger } from './swagger';
 import { AppModule } from './app.module';
-import { HttpExceptionFilterFilter } from './common/utils/http-exception-filter.filter';
-
-import { ReturnBodyInterceptor } from './common/utils/return-body.interceptor';
 
 // 中间设置
 async function initPlugins(app) {
@@ -42,9 +35,9 @@ async function bootstrap() {
 
   app.enableCors(); // 允许跨域
 
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new HttpExceptionFilterFilter()); // 全局异常捕获
-  app.useGlobalInterceptors(new ReturnBodyInterceptor()); // 自动包裹返回体
+  // app.useGlobalPipes(new ValidationPipe());
+  // app.useGlobalFilters(new HttpExceptionFilterFilter()); // 全局异常捕获
+  // app.useGlobalInterceptors(new ReturnBodyInterceptor()); // 自动包裹返回体
 
   initPlugins(app);
 

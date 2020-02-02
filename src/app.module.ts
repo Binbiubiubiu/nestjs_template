@@ -1,16 +1,30 @@
 import { Module, CacheModule, CacheInterceptor } from '@nestjs/common';
-import { CommonModule } from './common/common.module';
-import { ApiModule } from './api/api.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ConfigModule } from './config/config.module';
 import { TypeOrmModuleOptions, TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from './config/config.service';
+// 各个模块
+import { ApiModule } from './modules/api/api.module';
+import { UploadModule } from './modules/upload/upload.module';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { CommonModule } from './common/common.module';
+import { CatModule } from './modules/cat/cat.module';
 
 @Module({
   imports: [
+    ConfigModule,
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      installSubscriptionHandlers: true,
+      // definitions: {
+      //   path: join(process.cwd(), 'src/graphql.schema.ts'),
+      //   outputAs: 'class',
+      // },
+    }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return {
@@ -30,10 +44,6 @@ import { ConfigService } from './config/config.service';
         } as TypeOrmModuleOptions;
       },
     }),
-    ConfigModule,
-    // CacheModule.register(),
-    CommonModule,
-    ApiModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
       renderPath: '/client',
@@ -41,12 +51,19 @@ import { ConfigService } from './config/config.service';
         index: false,
       },
     }),
+    CommonModule,
+    // CacheModule.register(),
+    // ApiModule,
+    AuthModule,
+    UserModule,
+    UploadModule,
+    CatModule,
   ],
-  // providers: [
-  //   {
-  //     provide: APP_INTERCEPTOR,//全局缓存
-  //     useClass: CacheInterceptor,
-  //   },
-  // ],
+  providers: [
+    // {
+    //   provide: APP_INTERCEPTOR,//全局缓存
+    //   useClass: CacheInterceptor,
+    // },
+  ],
 })
 export class AppModule {}

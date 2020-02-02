@@ -15,9 +15,9 @@ import {
   ApiBearerAuth,
   ApiOperation,
 } from '@nestjs/swagger';
-import { AuthService } from '../services/auth.service';
-import { UsersService } from '../services/users.service';
-import { UserFormDto } from '../dtos/user-form.dto';
+import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
+import { UserFormDto } from './dtos/user-form.dto';
 
 @ApiTags('授权模块')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -25,7 +25,7 @@ import { UserFormDto } from '../dtos/user-form.dto';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
   ) {}
 
   @ApiOperation({ summary: '用户登录' })
