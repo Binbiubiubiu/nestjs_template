@@ -4,7 +4,6 @@ import { CatService } from './cat.service';
 import { CatEntity } from './cat.entity';
 import { PUB_SUB } from 'src/common/providers/contants';
 import { PubSub } from 'graphql-subscriptions';
-import { CatInput } from './dtos/cat.input';
 
 @Resolver('Cat')
 export class CatResolver {

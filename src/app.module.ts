@@ -1,17 +1,12 @@
-import { Module, CacheModule, CacheInterceptor } from '@nestjs/common';
+import { Module, CacheModule, CacheInterceptor, Global } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ConfigModule } from './config/config.module';
 import { TypeOrmModuleOptions, TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from './config/config.service';
-// 各个模块
-import { ApiModule } from './modules/api/api.module';
-import { UploadModule } from './modules/upload/upload.module';
-import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { CommonModule } from './common/common.module';
-import { CatModule } from './modules/cat/cat.module';
+
+import SubModules from './modules';
 
 @Module({
   imports: [
@@ -51,13 +46,8 @@ import { CatModule } from './modules/cat/cat.module';
         index: false,
       },
     }),
-    CommonModule,
     // CacheModule.register(),
-    // ApiModule,
-    AuthModule,
-    UserModule,
-    UploadModule,
-    CatModule,
+    ...SubModules,
   ],
   providers: [
     // {
