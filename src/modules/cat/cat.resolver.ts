@@ -14,14 +14,12 @@ export class CatResolver {
 
   @Mutation('createCat')
   async createCat(@Args('cat') cat: CatEntity) {
-    await this.catService.createCat(cat);
-    return { code: 200, message: '创建成功' };
+    return await this.catService.createCat(cat);
   }
 
   @Mutation('deleteCat')
   async deleteCat(@Args('id') id: number) {
-    await this.catService.deleteCat(id);
-    return { code: 200, message: '删除成功' };
+    return await this.catService.deleteCat(id);
   }
 
   @Mutation('updateCat')
@@ -44,13 +42,13 @@ export class CatResolver {
   @Query('findOneCat')
   async findOneCat(@Args('id') id: number) {
     const data = await this.catService.findOneCat(id);
-    return { code: 200, message: '查询成功', data };
+    return data;
   }
 
   @Query('findCats')
   async findCats() {
     const data = await this.catService.findCats();
-    return { code: 200, message: '查询成功', data };
+    return data;
   }
 
   @Query('sayHello')

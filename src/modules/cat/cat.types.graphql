@@ -20,18 +20,18 @@ type Subscription {
 }
 
 type CommonResponse {
-  code: Int
+  statusCode: Int
   message: String
 }
 
 type CatResponse {
-  code: Int
+  statusCode: Int
   message: String
   data: Cat
 }
 
 type CatsResponse {
-  code: Int
+  statusCode: Int
   message: String
   data: [Cat]
 }
@@ -40,6 +40,8 @@ type Cat {
   id: Int
   nickname: String
   species: String
+  createAt: String
+  updateAt: String
 }
 
 input CatInput {
