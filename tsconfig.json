@@ -11,9 +11,16 @@
     "baseUrl": "./src",
     "incremental": true,
     "paths": {
-      "src/*": ["*"]
+      "src/*": [
+        "*"
+      ]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

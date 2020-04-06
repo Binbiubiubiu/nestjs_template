@@ -1,3 +1,4 @@
+import { SocketIoAdapter } from './modules/websocket/socketio.adapter';
 import 'module-alias/register';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
@@ -30,6 +31,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // logger: false,
   });
+
+  app.useWebSocketAdapter(new SocketIoAdapter(app));
 
   setupSwagger(app); // 初始化swagger文档
 
