@@ -33,7 +33,7 @@
     "@nestjs/websockets": "^7.0.7",
     "@nestjsx/crud": "^4.4.2",
     "@nestjsx/crud-typeorm": "^4.4.2",
-    "apollo-server-express": "^2.9.3",
+    "apollo-server-express": "^2.14.2",
     "cache-manager": "^2.10.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.0",
