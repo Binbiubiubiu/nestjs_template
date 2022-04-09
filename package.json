@@ -48,7 +48,7 @@
     "graphql-tools": "^4.0.6",
     "helmet": "^3.21.0",
     "module-alias": "^2.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mysql": "^2.18.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
